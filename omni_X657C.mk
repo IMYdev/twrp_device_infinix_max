@@ -17,13 +17,13 @@ $(call inherit-product, vendor/twrp/config/common.mk)
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := X657C
-PRODUCT_NAME := twrp_X657C
+PRODUCT_NAME := omni_X657C
 PRODUCT_BRAND := Infinix
 PRODUCT_MODEL := Infinix X657C
 PRODUCT_MANUFACTURER := infinix
 PRODUCT_RELEASE_NAME := Infinix Infinix X657C
 
-PRODUCT_SHIPPING_API_LEVEL := 28
+PRODUCT_SHIPPING_API_LEVEL := 29
 
 # Dynamic Partition
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
