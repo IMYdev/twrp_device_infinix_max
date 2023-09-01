@@ -26,6 +26,7 @@
 /nvram           emmc      /dev/block/platform/bootdevice/by-name/nvram       flags=backup
 /proinfo         emmc      /dev/block/platform/bootdevice/by-name/proinfo     flags=backup
 
-# Removable storage
-/external_sd     auto      /dev/block/mmcblk0p1         /dev/block/mmcblk0
-/usb-otg         auto      /dev/block/sdd1              /dev/block/sdd        flags=storage;removable;wipeingui
+
+# External-Devices (SDCARD | OTG)
+/external_sd    auto     /dev/block/mmcblk1p1  /dev/block/mmcblk1            flags=display="External_SDcard";storage;wipeingui;removable;fsflags="utf8"
+/usbotg        auto     /dev/block/sda  /dev/block/sda1                     flags=display="Usb_Otg";storage;wipeingui;removable;fsflags="utf8"
