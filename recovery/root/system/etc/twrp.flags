@@ -1,8 +1,8 @@
 # mount point    fstype    device                        device2              flags
-vendor          /vendor                 auto            display="Vendor";logical;backup=1;flashimg=1;wipeingui
-product         /product                auto            display="Product";logical;backup=1;flashimg=1;wipeingui
 /system_root      ext4     /dev/block/platform/bootdevice/by-name/system       flags=backup=1;wipeingui
 /system_image     emmc     /dev/block/platform/bootdevice/by-name/system       flags=backup=1;flashimg=1
+/vendor          auto      /display="vendor";logical;backup=1;flashimg=1;wipeingui
+/product         auto      /display="product";logical;backup=1;flashimg=1;wipeingui
 /recovery        emmc      /dev/block/platform/bootdevice/by-name/recovery    flags=backup
 /boot            emmc      /dev/block/platform/bootdevice/by-name/boot
 /dtbo            emmc      /dev/block/platform/bootdevice/by-name/dtbo        flags=backup
