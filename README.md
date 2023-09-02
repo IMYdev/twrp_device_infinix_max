@@ -1,2 +1,2 @@
-# Twrp_Tree_X657C
+# Twrp for Infinix Smart 5
 Infinix Smart 5: Twrp device tree bring up. STATUS: (Work in progress)
