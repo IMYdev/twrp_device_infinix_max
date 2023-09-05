@@ -1,4 +1,4 @@
-FDEVICE="max"
+FDEVICE="Max"
 
 fox_get_target_device() {
 local chkdev=$(echo "$BASH_SOURCE" | grep $FDEVICE)
@@ -16,7 +16,7 @@ fi
 
 if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
     export TW_DEFAULT_LANGUAGE="en"
-    export OF_DEVICE_ALT="max,FULL-64"
+    export OF_DEVICE_ALT="Max,FULL-64"
 	export LC_ALL="C"
 	export OF_AB_DEVICE=1
 	export FOX_EXTREME_SIZE_REDUCTION=1
