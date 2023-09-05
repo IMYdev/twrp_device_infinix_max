@@ -22,7 +22,7 @@ on:
       DEVICE_PATH:
         description: 'DEVICE_PATH'
         required: true
-        default: 'device/infinix/X657C'
+        default: 'device/infinix/Max'
       COMMON_TREE_URL:
         description: 'https://github.com/Miraclev1/Twrp_Tree_Max'
         required: true
