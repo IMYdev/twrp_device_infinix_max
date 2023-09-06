@@ -132,4 +132,4 @@ TW_INCLUDE_REPACKTOOLS := true
 TW_HAS_MTP := true
 
 # Maintainer/Version
-TW_DEVICE_VERSION := Miraclev
+TW_DEVICE_VERSION := Miraclev1
