@@ -23,7 +23,7 @@ on property:twrp.decrypt.done=true
     stop teei_daemon
     stop keymaster-3-0
 
-service teei_daemon /sbin/teei_daemon
+service teei_daemon /system/teei_daemon
     user root
     group root
     disabled
