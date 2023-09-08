@@ -1,24 +1,5 @@
-
-    # For MTK DRM integration:
-service teei_daemon /vendor/bin/teei_daemon \
-    -r 020b0000000000000000000000000000 \
-    -r 020f0000000000000000000000000000 \
-    -r 06090000000000000000000000000000 \
-    -r 05120000000000000000000000000000 \
-    -r 40188311faf343488db888ad39496f9a \
-    -r 07060000000000000000000000007169 \
-    -r 9073f03a9618383bb1856eb3f990babd \
-    -r 08050000000000000000000000003419 \
-    -r 5020170115e016302017012521300000 \
-    -r 0f5eed3c3b5a47afacca69a84bf0efad \
-    -r 07407000000000000000000000000000 \
-    -r 05160000000000000000000000000000 \
-    -r 91dba524a6e24909acc48abd7163121a \
-    -r 08030000000000000000000000000000 \
-    -r 85f630e0f0964c5fa2cc268ce04e3da3 \
-    -r 98fb95bcb4bf42d26473eae48690d7ea \
-    -r 7b66512021214487ba710a51d7ea78fe \
-    -r 09010000000000000000000000000000
+# For MTK DRM integration:
+service teei_daemon /system/bin/teei_daemon
     user root
     group root
     disabled
@@ -30,7 +11,8 @@ on boot
     chown system system /sys/bus/platform/devices/utos/load_ut_drv
     chown system system /sys/bus/platform/devices/utos/unload_ut_drv
     chown system system /sys/bus/platform/devices/utos/notify_ree_dci_handler
-#BSP:add XLLLHLWS-62 by lichen 20190924 start
+
+#for All mode
 on load_persist_props_action
     write /proc/bootprof "start teei cfg (on load_persist_props_action)"
     mkdir /data/vendor/thh
@@ -54,6 +36,7 @@ on load_persist_props_action
     mkdir /data/vendor/thh/tee_0E
     mkdir /data/vendor/thh/tee_0F
     mkdir /data/vendor/thh/ta
+    mkdir /data/vendor/thh/tee_log
     mkdir /data/vendor/key_provisioning
     chmod 0755 /data/vendor/thh
     chown system system /data/vendor/thh
@@ -94,6 +77,8 @@ on load_persist_props_action
     chown system system /data/vendor/thh/tee_0E
     chmod 0755 /data/vendor/thh/tee_0F
     chown system system /data/vendor/thh/tee_0F
+    chmod 0755 /data/vendor/thh/tee_log
+    chown system system /data/vendor/thh/tee_log
     chmod 0755 /data/vendor/thh/ta
     chown system system /data/vendor/thh/ta
     chmod 0755 /data/vendor/thh/system
@@ -102,13 +87,9 @@ on load_persist_props_action
     chmod 0771 /data/vendor/key_provisioning
     chown system system /data/vendor/key_provisioning
     write /proc/bootprof "start teei cfg end (on load_persist_props_action)"
-#BSP:add XLLLHLWS-62 by lichen 20190924 end
 
-#BSP:modify KBBGHLESGQ-67 by wang.qin 20190719 start
-#for All mode
-#on load_persist_props_action
 on property:vold.decrypt=trigger_restart_framework
-    write /proc/bootprof "start teei cfg (on vold.decrypt=trigger_restart_framework)"
+    write /proc/bootprof "start teei cfg (on trigger_restart_framework)"
     mkdir /data/vendor/thh
     mkdir /data/vendor/thh/system
     mkdir /data/vendor/thh/tee_00
@@ -131,6 +112,7 @@ on property:vold.decrypt=trigger_restart_framework
     mkdir /data/vendor/thh/tee_0F
     mkdir /data/vendor/thh/ta
     mkdir /data/vendor/key_provisioning
+    mkdir /data/vendor/thh/tee_log
     chmod 0755 /data/vendor/thh
     chown system system /data/vendor/thh
     chmod 0755 /data/vendor/thh/tee_00
@@ -170,15 +152,16 @@ on property:vold.decrypt=trigger_restart_framework
     chown system system /data/vendor/thh/tee_0E
     chmod 0755 /data/vendor/thh/tee_0F
     chown system system /data/vendor/thh/tee_0F
+    chmod 0755 /data/vendor/thh/tee_log
+    chown system system /data/vendor/thh/tee_log
     chmod 0755 /data/vendor/thh/ta
     chown system system /data/vendor/thh/ta
     chmod 0755 /data/vendor/thh/system
     chown system system /data/vendor/thh/system
-    restorecon_recursive /data/vendor/thh
     chmod 0771 /data/vendor/key_provisioning
     chown system system /data/vendor/key_provisioning
-    write /proc/bootprof "start teei cfg end (on vold.decrypt=trigger_restart_framework)"
-#BSP:modify KBBGHLESGQ-67 by wang.qin 20190719 end
+    restorecon_recursive /data/vendor/thh
+    write /proc/bootprof "start teei cfg end (on trigger_restart_framework)"
 
 on post-fs
     # Set /mnt/vendor/persist/rpmb
@@ -206,9 +189,9 @@ on fs
     chown system system /dev/teei_client
     chmod 0660 /dev/teei_config
     chown system system /dev/teei_config
-    # 666 for SVP, 660 for others
-    chmod 0666 /dev/tee0
-    chown system drmrpc /dev/tee0
+    # 666 for SVP
+    chmod 0666 /dev/isee_tee0
+    chown system drmrpc /dev/isee_tee0
     chmod 0660 /dev/tz_vfs
     chown system system /dev/tz_vfs
     chmod 0660 /dev/teei_fp
@@ -229,6 +212,3 @@ on fs
 
 on property:vendor.crypto.fake_encrypt=1 && property:vold.post_fs_data_done=1
     setprop vendor.soter.teei.crypto.state unencrypted
-    
-on post-fs-data
-    setprop vendor.soter.teei.logini "start"
